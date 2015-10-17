@@ -5,7 +5,8 @@ require "ffi"
 # Some utility functions
 module FPM::Util
   extend FFI::Library
-  ffi_lib FFI::Library::LIBC
+  #ffi_lib FFI::Library::LIBC
+  ffi_lib('/usr/lib/libc.dylib')
 
   # mknod is __xmknod in glibc a wrapper around mknod to handle
   # various stat struct formats. See bits/stat.h in glibc source
