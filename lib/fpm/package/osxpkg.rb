@@ -54,6 +54,11 @@ class FPM::Package::OSXpkg < FPM::Package
       dont_obsolete_paths << path
     end
 
+  option "--altvers", "ALTVERS",
+    "The version of the resulting osxpkg file, "\
+    "ie. 1.2.3.0.5. If this is omitted, the version from "\
+    "the source package is used."
+
   private
   # return the identifier by prepending the reverse-domain prefix
   # to the package name, else return just the name
@@ -132,6 +137,10 @@ class FPM::Package::OSXpkg < FPM::Package
     output_check(output_path)
 
     temp_info = pkginfo_template_path
+
+    if self.attributes[:osxpkg_altvers]
+      self.version = self.attributes[:osxpkg_altvers]
+    end
 
     args = ["--identifier", identifier,
             "--info", temp_info,
